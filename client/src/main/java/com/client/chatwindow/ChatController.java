@@ -214,7 +214,7 @@ public class ChatController implements Initializable {
                 MediaPlayer mediaPlayer = new MediaPlayer(hit);
                 mediaPlayer.play();
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Encountered a problem while a new user joined.", e);
             }
 
         });
@@ -261,7 +261,7 @@ public class ChatController implements Initializable {
         try {
             setImageLabel();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Encountered a problem while initializing the image label.", e);
         }
         /* Drag and Drop */
         borderPane.setOnMousePressed(event -> {
@@ -293,7 +293,7 @@ public class ChatController implements Initializable {
                 try {
                     sendButtonAction();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Encountered a problem while sending a message.", e);
                 }
                 ke.consume();
             }
@@ -327,7 +327,7 @@ public class ChatController implements Initializable {
             try {
                 window = (Pane) fmxlLoader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Encountered a problem while logging out.", e);
             }
             Stage stage = MainLauncher.getPrimaryStage();
             Scene scene = new Scene(window);
