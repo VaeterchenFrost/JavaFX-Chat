@@ -11,6 +11,7 @@ import javafx.stage.StageStyle;
 
 public class MainLauncher extends Application {
 
+    private static final String SOCKET_CHAT_CLIENT_VERSION = "Socket Chat : Client version 0.3";
     private static Stage primaryStageObj;
 
     @Override
@@ -18,7 +19,7 @@ public class MainLauncher extends Application {
         primaryStageObj = primaryStage;
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/LoginView.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setTitle("Socket Chat : Client version 0.3");
+        primaryStage.setTitle(SOCKET_CHAT_CLIENT_VERSION);
         primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
         Scene mainScene = new Scene(root, 350, 420);
         mainScene.setRoot(root);
@@ -27,7 +28,6 @@ public class MainLauncher extends Application {
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
-
 
     public static void main(String[] args) {
         launch(args);
