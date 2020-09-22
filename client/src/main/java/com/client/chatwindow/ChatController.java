@@ -1,5 +1,9 @@
 package com.client.chatwindow;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.client.login.MainLauncher;
 import com.client.util.VoicePlayback;
 import com.client.util.VoiceRecorder;
@@ -12,6 +16,10 @@ import com.messages.bubble.BubbleSpec;
 import com.messages.bubble.BubbledLabel;
 import com.traynotifications.animations.AnimationType;
 import com.traynotifications.notification.TrayNotification;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -24,24 +32,26 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
 
