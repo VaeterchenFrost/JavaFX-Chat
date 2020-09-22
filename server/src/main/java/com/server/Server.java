@@ -50,10 +50,6 @@ public class Server {
         private Socket socket;
         private Logger logger = LoggerFactory.getLogger(Handler.class);
         private User user;
-        private ObjectInputStream input;
-        private OutputStream os;
-        private ObjectOutputStream output;
-        private InputStream is;
 
         public Handler(Socket socket) {
             this.socket = socket;
@@ -62,12 +58,8 @@ public class Server {
         @Override
         public void run() {
             logger.info("Attempting to connect a user...");
-            try {
-                is = socket.getInputStream();
-                input = new ObjectInputStream(is);
-                os = socket.getOutputStream();
-                output = new ObjectOutputStream(os);
-
+            try (ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+                    ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
                 Message firstMessage = (Message) input.readObject();
                 checkDuplicateUsername(firstMessage);
                 writers.add(output);
@@ -203,31 +195,6 @@ public class Server {
             if (user != null) {
                 users.remove(user);
                 logger.info("User object: {} has been removed!", user);
-            }
-            if (output != null) {
-                writers.remove(output);
-                logger.info("Writer object: {} has been removed!", user);
-            }
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
             try {
                 removeFromList();
