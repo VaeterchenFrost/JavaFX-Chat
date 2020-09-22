@@ -27,7 +27,6 @@ public class Listener implements Runnable {
     private InputStream is;
     private ObjectInputStream input;
     private OutputStream outputStream;
-    
 
     public Listener(String hostname, int port, String username, String picture, ChatController controller) {
         this.hostname = hostname;
@@ -59,36 +58,45 @@ public class Listener implements Runnable {
                 message = (Message) input.readObject();
 
                 if (message != null) {
-                    logger.debug("Message recieved:{} MessageType:{}Name:{}",
+                    logger.debug("Message recieved:{} MessageType:{} Name:{}",
                             new String[] { message.getMsg(), message.getType().toString(), message.getName() });
-                    switch (message.getType()) {
-                        case USER:
-                            controller.addToChat(message);
-                            break;
-                        case VOICE:
-                            controller.addToChat(message);
-                            break;
-                        case NOTIFICATION:
-                            controller.newUserNotification(message);
-                            break;
-                        case SERVER:
-                            controller.addAsServer(message);
-                            break;
-                        case CONNECTED:
-                            controller.setUserList(message);
-                            break;
-                        case DISCONNECTED:
-                            controller.setUserList(message);
-                            break;
-                        case STATUS:
-                            controller.setUserList(message);
-                            break;
-                    }
+                    selectActionForMessage(message);
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             controller.logoutScene();
+        }
+    }
+
+    /**
+     * Selects the appropriate action for the message type provided.
+     * 
+     * @param message the {@link Message} to process
+     */
+    private void selectActionForMessage(Message message) {
+        switch (message.getType()) {
+            case USER:
+                controller.addToChat(message);
+                break;
+            case VOICE:
+                controller.addToChat(message);
+                break;
+            case NOTIFICATION:
+                controller.newUserNotification(message);
+                break;
+            case SERVER:
+                controller.addAsServer(message);
+                break;
+            case CONNECTED:
+                controller.setUserList(message);
+                break;
+            case DISCONNECTED:
+                controller.setUserList(message);
+                break;
+            case STATUS:
+                controller.setUserList(message);
+                break;
         }
     }
 
