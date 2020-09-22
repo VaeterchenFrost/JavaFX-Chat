@@ -64,7 +64,7 @@ public class Server {
                 checkDuplicateUsername(firstMessage);
                 writers.add(output);
                 sendNotification(firstMessage);
-                addToList();
+                joinedServerMessage();
 
                 while (socket.isConnected()) {
                     Message inputmsg = (Message) input.readObject();
@@ -79,7 +79,7 @@ public class Server {
                                 write(inputmsg);
                                 break;
                             case CONNECTED:
-                                addToList();
+                                joinedServerMessage();
                                 break;
                             case STATUS:
                                 changeStatus(inputmsg);
@@ -156,7 +156,7 @@ public class Server {
         /*
          * For displaying that a user has joined the server
          */
-        private Message addToList() throws IOException {
+        private Message joinedServerMessage() throws IOException {
             Message msg = new Message();
             msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
             msg.setType(MessageType.CONNECTED);
