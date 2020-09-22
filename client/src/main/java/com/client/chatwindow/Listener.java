@@ -13,12 +13,14 @@ import java.net.Socket;
 import static com.messages.MessageType.CONNECTED;
 
 public class Listener implements Runnable {
+
+    private static final String COULD_NOT_CONNECT_TO_SERVER = "Could not connect to server";
+    private static final String HASCONNECTED = "has connected";
     public String hostname;
     public int port;
     public static String username;
     public ChatController controller;
 
-    private static final String HASCONNECTED = "has connected";
     Logger logger = LoggerFactory.getLogger(Listener.class);
 
     private static String picture;
@@ -43,7 +45,7 @@ public class Listener implements Runnable {
             oos = resOOS;
             LoginController.getInstance().showScene();
         } catch (IOException e) {
-            LoginController.getInstance().showErrorDialog("Could not connect to server");
+            LoginController.getInstance().showErrorDialog(COULD_NOT_CONNECT_TO_SERVER);
             logger.error("Could not Connect");
         }
         logger.info("Connection accepted {}:{}", socket.getInetAddress(), socket.getPort());
