@@ -304,6 +304,8 @@ public class ChatController implements Initializable {
             case "Default":
                 this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default.png").toString()));
                 break;
+            default:
+                logger.warn("No image resource for '{}' available!", selectedPicture);
         }
     }
 
