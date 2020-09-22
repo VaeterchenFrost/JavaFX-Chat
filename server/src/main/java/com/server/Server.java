@@ -84,6 +84,10 @@ public class Server {
                             case STATUS:
                                 changeStatus(inputmsg);
                                 break;
+                            case DISCONNECTED:
+                            case NOTIFICATION:
+                            case SERVER:
+                                break;
                         }
                     }
                 }
