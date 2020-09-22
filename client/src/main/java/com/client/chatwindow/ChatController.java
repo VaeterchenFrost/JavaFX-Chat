@@ -270,13 +270,11 @@ public class ChatController implements Initializable {
             borderPane.setCursor(Cursor.DEFAULT);
         });
 
-        statusComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    Listener.sendStatusUpdate(Status.valueOf(newValue.toUpperCase()));
-                } catch (IOException e) {
-                    logger.error("Could not send the status update!", e);
-                }
+         statusComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                Listener.sendStatusUpdate(Status.valueOf(newValue.toUpperCase()));
+            } catch (IOException e) {
+                logger.error("Could not send the status update!", e);
             }
         });
 
