@@ -12,7 +12,7 @@ import java.net.Socket;
 
 import static com.messages.MessageType.CONNECTED;
 
-public class Listener implements Runnable{
+public class Listener implements Runnable {
 
     private static final String HASCONNECTED = "has connected";
 
@@ -58,7 +58,8 @@ public class Listener implements Runnable{
                 message = (Message) input.readObject();
 
                 if (message != null) {
-                    logger.debug("Message recieved:{} MessageType:{}Name:{}", new String[]{message.getMsg(), message.getType().toString(), message.getName()});
+                    logger.debug("Message recieved:{} MessageType:{}Name:{}",
+                            new String[] { message.getMsg(), message.getType().toString(), message.getName() });
                     switch (message.getType()) {
                         case USER:
                             controller.addToChat(message);
@@ -90,7 +91,9 @@ public class Listener implements Runnable{
         }
     }
 
-    /* This method is used for sending a normal Message
+    /*
+     * This method is used for sending a normal Message
+     * 
      * @param msg - The message which the user generates
      */
     public static void send(String msg) throws IOException {
@@ -104,9 +107,11 @@ public class Listener implements Runnable{
         oos.flush();
     }
 
-    /* This method is used for sending a voice Message
- * @param msg - The message which the user generates
- */
+    /*
+     * This method is used for sending a voice Message
+     * 
+     * @param msg - The message which the user generates
+     */
     public static void sendVoiceMessage(byte[] audio) throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
@@ -118,9 +123,11 @@ public class Listener implements Runnable{
         oos.flush();
     }
 
-    /* This method is used for sending a normal Message
- * @param msg - The message which the user generates
- */
+    /*
+     * This method is used for sending a normal Message
+     * 
+     * @param msg - The message which the user generates
+     */
     public static void sendStatusUpdate(Status status) throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
