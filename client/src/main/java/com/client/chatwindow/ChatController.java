@@ -55,6 +55,9 @@ import javafx.util.Duration;
 
 public class ChatController implements Initializable {
 
+    private static final String A_NEW_USER_HAS_JOINED = "A new user has joined!";
+    private static final String SENT_A_VOICE_MESSAGE = "Sent a voice message!";
+    private static final String HAS_JOINED_THE_JAVA_FX_CHATROOM = " has joined the JavaFX Chatroom!";
     @FXML
     private TextArea messageBox;
     @FXML
@@ -122,7 +125,7 @@ public class ChatController implements Initializable {
                     ImageView imageview = new ImageView(
                             new Image(getClass().getClassLoader().getResource("images/sound.png").toString()));
                     bl6.setGraphic(imageview);
-                    bl6.setText("Sent a voice message!");
+                    bl6.setText(SENT_A_VOICE_MESSAGE);
                     VoicePlayback.playAudio(msg.getVoiceMsg());
                 } else {
                     bl6.setText(msg.getName() + ": " + msg.getMsg());
@@ -154,7 +157,7 @@ public class ChatController implements Initializable {
                 if (msg.getType() == MessageType.VOICE) {
                     bl6.setGraphic(new ImageView(
                             new Image(getClass().getClassLoader().getResource("images/sound.png").toString())));
-                    bl6.setText("Sent a voice message!");
+                    bl6.setText(SENT_A_VOICE_MESSAGE);
                     VoicePlayback.playAudio(msg.getVoiceMsg());
                 } else {
                     bl6.setText(msg.getMsg());
@@ -212,13 +215,18 @@ public class ChatController implements Initializable {
         Platform.runLater(() -> {
             Image profileImg = new Image(getClass().getClassLoader()
                     .getResource("images/" + msg.getPicture().toLowerCase() + ".png").toString(), 50, 50, false, false);
-            TrayNotification tray = new TrayNotification();
-            tray.setTitle("A new user has joined!");
-            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
-            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-            tray.setAnimationType(AnimationType.POPUP);
-            tray.setImage(profileImg);
-            tray.showAndDismiss(Duration.seconds(5));
+            TrayNotification tray;
+            try {
+                tray = new TrayNotification();
+                tray.setTitle(A_NEW_USER_HAS_JOINED);
+                tray.setMessage(msg.getName() + HAS_JOINED_THE_JAVA_FX_CHATROOM);
+                tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+                tray.setAnimationType(AnimationType.POPUP);
+                tray.setImage(profileImg);
+                tray.showAndDismiss(Duration.seconds(5));
+            } catch (IOException e) {
+                logger.error("Problem creating TrayNotification:", e);
+            }
             try {
                 Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(hit);
