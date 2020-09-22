@@ -99,8 +99,10 @@ public class Server {
                 logger.error("Socket Exception for user {}", name);
             } catch (DuplicateUsernameException duplicateException) {
                 logger.error("Duplicate Username : {}", name);
-            } catch (Exception e) {
-                logger.error(String.format("Exception in run() method for user: %s", name), e);
+            } catch (IOException e) {
+                logger.error(String.format("%s in run() method for user: %s", e.getClass().getSimpleName(), name), e);
+            } catch (ClassNotFoundException e) {
+                logger.error("Encountered a problem communicating with user {}: {}", name, e.getMessage());
             } finally {
                 closeConnections();
             }
