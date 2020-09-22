@@ -50,13 +50,12 @@ public class ChatController implements Initializable {
     @FXML private TextArea messageBox;
     @FXML private Label usernameLabel;
     @FXML private Label onlineCountLabel;
-    @FXML private ListView userList;
+    @FXML private ListView<User> userList;
     @FXML private ImageView userImageView;
     @FXML private Button recordBtn;
-    @FXML ListView chatPane;
-    @FXML ListView statusList;
+    @FXML ListView<HBox> chatPane;
     @FXML BorderPane borderPane;
-    @FXML ComboBox statusComboBox;
+    @FXML ComboBox<String> statusComboBox;
     @FXML ImageView microphoneImageView;
 
     Image microphoneActiveImage = new Image(getClass().getClassLoader().getResource("images/microphone-active.png").toString());
