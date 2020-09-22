@@ -2,16 +2,17 @@ package com.messages;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Message implements Serializable {
 
-    private String name;
+    private static final long serialVersionUID = 4635025961938424754L;
+    private String name, msg, picture;
     private MessageType type;
-    private String msg;
     private int count;
-    private ArrayList<User> list;
-    private ArrayList<User> users;
+    private List<User> list;
+    private List<User> users;
 
     private Status status;
     private byte[] voiceMsg;
@@ -22,11 +23,6 @@ public class Message implements Serializable {
 
     public String getPicture() {
         return picture;
-    }
-
-    private String picture;
-
-    public Message() {
     }
 
     public String getName() {
@@ -54,19 +50,19 @@ public class Message implements Serializable {
         this.type = type;
     }
 
-    public ArrayList<User> getUserlist() {
+    public List<User> getUserlist() {
         return list;
     }
 
-    public void setUserlist(HashMap<String, User> userList) {
+    public void setUserlist(Map<String, User> userList) {
         this.list = new ArrayList<>(userList.values());
     }
 
-    public void setOnlineCount(int count){
+    public void setOnlineCount(int count) {
         this.count = count;
     }
 
-    public int getOnlineCount(){
+    public int getOnlineCount() {
         return this.count;
     }
 
@@ -74,12 +70,11 @@ public class Message implements Serializable {
         this.picture = picture;
     }
 
-
-    public ArrayList<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
