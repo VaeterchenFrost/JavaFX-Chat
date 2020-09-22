@@ -274,7 +274,7 @@ public class ChatController implements Initializable {
                 try {
                     Listener.sendStatusUpdate(Status.valueOf(newValue.toUpperCase()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Could not send the status update!", e);
                 }
             }
         });
