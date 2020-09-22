@@ -48,7 +48,7 @@ public class Listener implements Runnable{
             LoginController.getInstance().showErrorDialog("Could not connect to server");
             logger.error("Could not Connect");
         }
-        logger.info("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
+        logger.info("Connection accepted {}:{}", socket.getInetAddress(), socket.getPort());
 
         try {
             connect();
@@ -58,7 +58,7 @@ public class Listener implements Runnable{
                 message = (Message) input.readObject();
 
                 if (message != null) {
-                    logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
+                    logger.debug("Message recieved:{} MessageType:{}Name:{}", new String[]{message.getMsg(), message.getType().toString(), message.getName()});
                     switch (message.getType()) {
                         case USER:
                             controller.addToChat(message);
