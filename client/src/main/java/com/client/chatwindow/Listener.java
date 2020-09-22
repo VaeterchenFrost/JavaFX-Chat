@@ -13,20 +13,21 @@ import java.net.Socket;
 import static com.messages.MessageType.CONNECTED;
 
 public class Listener implements Runnable {
-
-    private static final String HASCONNECTED = "has connected";
-
-    private static String picture;
-    private Socket socket;
     public String hostname;
     public int port;
     public static String username;
     public ChatController controller;
+
+    private static final String HASCONNECTED = "has connected";
+    Logger logger = LoggerFactory.getLogger(Listener.class);
+
+    private static String picture;
     private static ObjectOutputStream oos;
+    private Socket socket;
     private InputStream is;
     private ObjectInputStream input;
     private OutputStream outputStream;
-    Logger logger = LoggerFactory.getLogger(Listener.class);
+    
 
     public Listener(String hostname, int port, String username, String picture, ChatController controller) {
         this.hostname = hostname;
