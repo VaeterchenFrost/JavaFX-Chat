@@ -55,6 +55,7 @@ public class Server {
             this.socket = socket;
         }
 
+        @Override
         public void run() {
             logger.info("Attempting to connect a user...");
             try {
@@ -72,7 +73,7 @@ public class Server {
                 while (socket.isConnected()) {
                     Message inputmsg = (Message) input.readObject();
                     if (inputmsg != null) {
-                        logger.info(inputmsg.getType() + " - " + inputmsg.getName() + ": " + inputmsg.getMsg());
+                        logger.info( "{} - {}: {}"  ,new Object[]{inputmsg.getType(),inputmsg.getName(),inputmsg.getMsg()});
                         switch (inputmsg.getType()) {
                             case USER:
                                 write(inputmsg);
@@ -90,18 +91,18 @@ public class Server {
                     }
                 }
             } catch (SocketException socketException) {
-                logger.error("Socket Exception for user " + name);
+                logger.error("Socket Exception for user {}" , name);
             } catch (DuplicateUsernameException duplicateException){
-                logger.error("Duplicate Username : " + name);
+                logger.error("Duplicate Username : {}" , name);
             } catch (Exception e){
-                logger.error("Exception in run() method for user: " + name, e);
+                logger.error(String.format("Exception in run() method for user: %s" , name), e);
             } finally {
                 closeConnections();
             }
         }
 
         private Message changeStatus(Message inputmsg) throws IOException {
-            logger.debug(inputmsg.getName() + " has changed status to  " + inputmsg.getStatus());
+            logger.debug("{} has changed status to {}",inputmsg.getName(), inputmsg.getStatus());
             Message msg = new Message();
             msg.setName(user.getName());
             msg.setType(MessageType.STATUS);
@@ -113,7 +114,7 @@ public class Server {
         }
 
         private synchronized void checkDuplicateUsername(Message firstMessage) throws DuplicateUsernameException {
-            logger.info(firstMessage.getName() + " is trying to connect");
+            logger.info("{} is trying to connect", firstMessage.getName());
             if (!names.containsKey(firstMessage.getName())) {
                 this.name = firstMessage.getName();
                 user = new User();
@@ -124,9 +125,9 @@ public class Server {
                 users.add(user);
                 names.put(name, user);
 
-                logger.info(name + " has been added to the list");
+                logger.info("{} has been added to the list", name);
             } else {
-                logger.error(firstMessage.getName() + " is already connected");
+                logger.error("{} is already connected", firstMessage.getName());
                 throw new DuplicateUsernameException(firstMessage.getName() + " is already connected");
             }
         }
@@ -184,18 +185,19 @@ public class Server {
          */
         private synchronized void closeConnections()  {
             logger.debug("closeConnections() method Enter");
-            logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
+            if(logger.isInfoEnabled())
+                logger.info("HashMap names: {} writers: {} usersList size: {}", new String[]{Integer.toString(names.size()) , Integer.toString(writers.size()) ,Integer.toString(users.size())});
             if (name != null) {
                 names.remove(name);
-                logger.info("User: " + name + " has been removed!");
+                logger.info("User: {} has been removed!", name);
             }
             if (user != null){
                 users.remove(user);
-                logger.info("User object: " + user + " has been removed!");
+                logger.info("User object: {} has been removed!", user);
             }
             if (output != null){
                 writers.remove(output);
-                logger.info("Writer object: " + user + " has been removed!");
+                logger.info("Writer object: {} has been removed!", user);
             }
             if (is != null){
                 try {
@@ -223,7 +225,8 @@ public class Server {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
+            if(logger.isInfoEnabled())
+                logger.info("HashMap names: {} writers: {} usersList size: {}", new String[]{Integer.toString(names.size()) , Integer.toString(writers.size()) ,Integer.toString(users.size())});
             logger.debug("closeConnections() method Exit");
         }
     }
