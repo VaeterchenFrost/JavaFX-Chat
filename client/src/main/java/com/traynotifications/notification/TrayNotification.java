@@ -39,12 +39,14 @@ public final class TrayNotification {
 
     /**
      * Initializes an instance of the tray notification object
-     * @param title The title text to assign to the tray
-     * @param body The body text to assign to the tray
-     * @param img The image to show on the tray
+     * 
+     * @param title         The title text to assign to the tray
+     * @param body          The body text to assign to the tray
+     * @param img           The image to show on the tray
      * @param rectangleFill The fill for the rectangle
+     * @throws IOException
      */
-    public TrayNotification(String title, String body, Image img, Paint rectangleFill) {
+    public TrayNotification(String title, String body, Image img, Paint rectangleFill) throws IOException {
         initTrayNotification(title, body, NotificationType.CUSTOM);
 
         setImage(img);
@@ -53,45 +55,45 @@ public final class TrayNotification {
 
     /**
      * Initializes an instance of the tray notification object
-     * @param title The title text to assign to the tray
-     * @param body The body text to assign to the tray
+     * 
+     * @param title            The title text to assign to the tray
+     * @param body             The body text to assign to the tray
      * @param notificationType The notification type to assign to the tray
+     * @throws IOException
      */
-    public TrayNotification(String title, String body, NotificationType notificationType ) {
+    public TrayNotification(String title, String body, NotificationType notificationType) throws IOException {
         initTrayNotification(title, body, notificationType);
     }
 
     /**
      * Initializes an empty instance of the tray notification
+     * 
+     * @throws IOException
      */
-    public TrayNotification() {
+    public TrayNotification() throws IOException {
         initTrayNotification("", "", NotificationType.CUSTOM);
     }
 
-    private void initTrayNotification(String title, String message, NotificationType type) {
+    private void initTrayNotification(String title, String message, NotificationType type) throws IOException {
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/TrayNotification.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/TrayNotification.fxml"));
 
-            fxmlLoader.setController(this);
-            fxmlLoader.load();
+        fxmlLoader.setController(this);
+        fxmlLoader.load();
 
-            initStage();
-            initAnimations();
+        initStage();
+        initAnimations();
 
-            setTray(title, message, type);
+        setTray(title, message, type);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void initAnimations() {
 
-        animationProvider =
-            new AnimationProvider(new FadeAnimation(stage), new SlideAnimation(stage), new PopupAnimation(stage));
+        animationProvider = new AnimationProvider(new FadeAnimation(stage), new SlideAnimation(stage),
+                new PopupAnimation(stage));
 
-        //Default animation type
+        // Default animation type
         setAnimationType(AnimationType.SLIDE);
     }
 
@@ -172,6 +174,7 @@ public final class TrayNotification {
 
     /**
      * Shows and dismisses the tray notification
+     * 
      * @param dismissDelay How long to delay the start of the dismiss animation
      */
     public void showAndDismiss(Duration dismissDelay) {
@@ -193,7 +196,7 @@ public final class TrayNotification {
      */
     public void showAndWait() {
 
-        if (! isTrayShowing()) {
+        if (!isTrayShowing()) {
             stage.show();
 
             animator.playShowAnimation();
@@ -225,22 +228,25 @@ public final class TrayNotification {
 
     /**
      * Sets an action event for when the tray has been dismissed
+     * 
      * @param event The event to occur when the tray has been dismissed
      */
     public void setOnDismiss(EventHandler<ActionEvent> event) {
-        onDismissedCallBack  = event;
+        onDismissedCallBack = event;
     }
 
     /**
      * Sets an action event for when the tray has been shown
+     * 
      * @param event The event to occur after the tray has been shown
      */
     public void setOnShown(EventHandler<ActionEvent> event) {
-        onShownCallback  = event;
+        onShownCallback = event;
     }
 
     /**
      * Sets a new task bar image for the tray
+     * 
      * @param img The image to assign
      */
     public void setTrayIcon(Image img) {
@@ -254,6 +260,7 @@ public final class TrayNotification {
 
     /**
      * Sets a title to the tray
+     * 
      * @param txt The text to assign to the tray icon
      */
     public void setTitle(String txt) {
@@ -266,6 +273,7 @@ public final class TrayNotification {
 
     /**
      * Sets the message for the tray notification
+     * 
      * @param txt The text to assign to the body of the tray notification
      */
     public void setMessage(String txt) {
@@ -276,7 +284,7 @@ public final class TrayNotification {
         return lblMessage.getText();
     }
 
-    public void setImage (Image img) {
+    public void setImage(Image img) {
         imageIcon.setImage(img);
 
         setTrayIcon(img);
