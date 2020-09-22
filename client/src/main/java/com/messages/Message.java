@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class Message implements Serializable {
 
+    private static final long serialVersionUID = 4635025961938424754L;
     private String name;
     private MessageType type;
     private String msg;
