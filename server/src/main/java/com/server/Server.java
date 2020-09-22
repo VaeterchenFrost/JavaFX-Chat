@@ -38,6 +38,12 @@ public class Server {
     }
 
     private static class Handler extends Thread {
+
+        private static final String SERVER = "SERVER";
+        private static final String WELCOME_JOINED_THE_SERVER = "Welcome, You have now joined the server! Enjoy chatting!";
+        private static final String HAS_LEFT_THE_CHAT = "has left the chat.";
+        private static final String HAS_JOINED_THE_CHAT = "has joined the chat.";
+
         private String name;
         private Socket socket;
         private Logger logger = LoggerFactory.getLogger(Handler.class);
@@ -129,7 +135,7 @@ public class Server {
 
         private Message sendNotification(Message firstMessage) throws IOException {
             Message msg = new Message();
-            msg.setMsg("has joined the chat.");
+            msg.setMsg(HAS_JOINED_THE_CHAT);
             msg.setType(MessageType.NOTIFICATION);
             msg.setName(firstMessage.getName());
             msg.setPicture(firstMessage.getPicture());
@@ -140,9 +146,9 @@ public class Server {
         private Message removeFromList() throws IOException {
             logger.debug("removeFromList() method Enter");
             Message msg = new Message();
-            msg.setMsg("has left the chat.");
+            msg.setMsg(HAS_LEFT_THE_CHAT);
             msg.setType(MessageType.DISCONNECTED);
-            msg.setName("SERVER");
+            msg.setName(SERVER);
             msg.setUserlist(names);
             write(msg);
             logger.debug("removeFromList() method Exit");
@@ -154,9 +160,9 @@ public class Server {
          */
         private Message joinedServerMessage() throws IOException {
             Message msg = new Message();
-            msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
+            msg.setMsg(WELCOME_JOINED_THE_SERVER);
             msg.setType(MessageType.CONNECTED);
-            msg.setName("SERVER");
+            msg.setName(SERVER);
             write(msg);
             return msg;
         }
