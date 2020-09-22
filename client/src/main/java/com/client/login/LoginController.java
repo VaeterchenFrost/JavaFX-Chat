@@ -40,7 +40,7 @@ public class LoginController implements Initializable {
     @FXML public  TextField hostnameTextfield;
     @FXML private TextField portTextfield;
     @FXML private TextField usernameTextfield;
-    @FXML private ChoiceBox imagePicker;
+    @FXML private ChoiceBox<String> imagePicker;
     @FXML private Label selectedPicture;
     public static ChatController con;
     @FXML private BorderPane borderPane;
