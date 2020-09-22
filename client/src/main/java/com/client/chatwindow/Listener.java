@@ -51,7 +51,7 @@ public class Listener implements Runnable {
         logger.info("Connection accepted {}:{}", socket.getInetAddress(), socket.getPort());
 
         try {
-            connect();
+            sendConnectedMessage();
             logger.info("Sockets in and out ready!");
             while (socket.isConnected()) {
                 Message message = null;
@@ -139,7 +139,7 @@ public class Listener implements Runnable {
     }
 
     /* This method is used to send a connecting message */
-    public static void connect() throws IOException {
+    public static void sendConnectedMessage() throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
         createMessage.setType(CONNECTED);
