@@ -28,7 +28,6 @@ public class MainLauncher extends Application {
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
