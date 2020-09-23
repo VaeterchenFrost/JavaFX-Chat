@@ -40,6 +40,7 @@ public class Listener implements Runnable {
     }
 
     public void run() {
+        // establish connection
         try {
             socket = new Socket(hostname, port);
             input = new ObjectInputStream(socket.getInputStream());
@@ -50,7 +51,7 @@ public class Listener implements Runnable {
             logger.error("Could not Connect");
         } 
         logger.info("Connection accepted {}:{}", socket.getInetAddress(), socket.getPort());
-
+        // 
         try {
             sendConnectedMessage();
             logger.info("Sockets in and out ready!");

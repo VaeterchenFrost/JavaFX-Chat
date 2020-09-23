@@ -32,7 +32,8 @@ public class Server {
         logger.info("The chat server is running.");
 
         try (ServerSocket listener = new ServerSocket(PORT)) {
-            new Handler(listener.accept()).start();
+            while (true)
+                new Handler(listener.accept()).start();
         }
 
     }
@@ -58,6 +59,7 @@ public class Server {
             logger.info("Attempting to connect a user...");
             try (ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
                     ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
+                logger.info("got streams.");
                 Message firstMessage = (Message) input.readObject();
                 checkDuplicateUsername(firstMessage);
                 writers.add(output);
