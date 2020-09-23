@@ -11,13 +11,13 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 /**
- * A Class for Rendering users images / name on the userlist.
+ * A class for rendering users images / name on the user list.
  */
 class CellRenderer implements Callback<ListView<User>, ListCell<User>> {
     @Override
     public ListCell<User> call(ListView<User> p) {
 
-        return new ListCell<User>(){ 
+        return new ListCell<User>() {
 
             @Override
             protected void updateItem(User user, boolean bln) {
@@ -26,10 +26,9 @@ class CellRenderer implements Callback<ListView<User>, ListCell<User>> {
                 setText(null);
                 if (user != null) {
                     HBox hBox = new HBox();
-
                     Text name = new Text(user.getName());
-
                     ImageView statusImageView = new ImageView();
+
                     Image statusImage = new Image(getClass().getClassLoader()
                             .getResource("images/" + user.getStatus().toString().toLowerCase() + ".png").toString(), 16,
                             16, true, true);
