@@ -3,27 +3,29 @@ package com.messages;
 import java.io.Serializable;
 
 /**
- * Created by Dominic on 01-May-16.
+ * Created by Dominic on 2016-May-01.
  */
 public class User implements Serializable {
 
     private static final long serialVersionUID = 2742144767101018291L;
 
+    String name;
+    String picture;
+    Status status;
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
-
-    String name;
 
     public String getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(final String picture) {
         this.picture = picture;
     }
 
@@ -31,10 +33,8 @@ public class User implements Serializable {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(final Status status) {
         this.status = status;
     }
 
-    String picture;
-    Status status;
 }

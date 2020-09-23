@@ -29,7 +29,7 @@ public class Message implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -38,7 +38,7 @@ public class Message implements Serializable {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(final String msg) {
         this.msg = msg;
     }
 
@@ -46,7 +46,7 @@ public class Message implements Serializable {
         return type;
     }
 
-    public void setType(MessageType type) {
+    public void setType(final MessageType type) {
         this.type = type;
     }
 
@@ -54,11 +54,11 @@ public class Message implements Serializable {
         return list;
     }
 
-    public void setUserlist(Map<String, User> userList) {
+    public void setUserlist(final Map<String, User> userList) {
         this.list = new ArrayList<>(userList.values());
     }
 
-    public void setOnlineCount(int count) {
+    public void setOnlineCount(final int count) {
         this.count = count;
     }
 
@@ -66,7 +66,7 @@ public class Message implements Serializable {
         return this.count;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(final String picture) {
         this.picture = picture;
     }
 
@@ -74,11 +74,11 @@ public class Message implements Serializable {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(final List<User> users) {
         this.users = users;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(final Status status) {
         this.status = status;
     }
 
@@ -86,7 +86,7 @@ public class Message implements Serializable {
         return status;
     }
 
-    public void setVoiceMsg(byte[] voiceMsg) {
+    public void setVoiceMsg(final byte[] voiceMsg) {
         this.voiceMsg = voiceMsg;
     }
 }
