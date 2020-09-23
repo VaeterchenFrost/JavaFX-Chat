@@ -22,11 +22,9 @@ public class Listener implements Runnable {
     Logger logger = LoggerFactory.getLogger(Listener.class);
 
     private static String picture;
-    private static ObjectOutputStream oos;
+    private static ObjectOutputStream objectOS;
     private Socket socket;
-    private InputStream is;
-    private ObjectInputStream input;
-    private OutputStream outputStream;
+    private ObjectInputStream objectIS;
 
     public Listener(String hostname, int port, String username, String picture, ChatController controller) {
         this.hostname = hostname;
@@ -40,13 +38,13 @@ public class Listener implements Runnable {
         try {
             socket = new Socket(hostname, port);
             LoginController.getInstance().showScene();
-            outputStream = socket.getOutputStream();
-            oos = new ObjectOutputStream(outputStream);
-            is = socket.getInputStream();
-            input = new ObjectInputStream(is);
+            objectOS = new ObjectOutputStream(socket.getOutputStream());
+            objectIS = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             LoginController.getInstance().showErrorDialog("Could not connect to server");
             logger.error("Could not Connect");
+            closeResources();
+            return;
         }
         logger.info("Connection accepted {}:{}", socket.getInetAddress(), socket.getPort());
 
@@ -55,7 +53,7 @@ public class Listener implements Runnable {
             logger.info("Sockets in and out ready!");
             while (socket.isConnected()) {
                 Message message = null;
-                message = (Message) input.readObject();
+                message = (Message) objectIS.readObject();
 
                 if (message != null) {
                     logger.debug("Message recieved:{} MessageType:{} Name:{}",
@@ -66,6 +64,20 @@ public class Listener implements Runnable {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             controller.logoutScene();
+        }
+        closeResources();
+    }
+
+    private void closeResources() {
+        try {
+            if (socket != null)
+                socket.close();
+            if (objectOS != null)
+                objectOS.close();
+            if (objectIS != null)
+                objectIS.close();
+        } catch (IOException closeException) {
+            logger.error("Problem closing resources.", closeException);
         }
     }
 
@@ -112,8 +124,8 @@ public class Listener implements Runnable {
         createMessage.setStatus(Status.AWAY);
         createMessage.setMsg(msg);
         createMessage.setPicture(picture);
-        oos.writeObject(createMessage);
-        oos.flush();
+        objectOS.writeObject(createMessage);
+        objectOS.flush();
     }
 
     /*
@@ -128,8 +140,8 @@ public class Listener implements Runnable {
         createMessage.setStatus(Status.AWAY);
         createMessage.setVoiceMsg(audio);
         createMessage.setPicture(picture);
-        oos.writeObject(createMessage);
-        oos.flush();
+        objectOS.writeObject(createMessage);
+        objectOS.flush();
     }
 
     /*
@@ -143,8 +155,8 @@ public class Listener implements Runnable {
         createMessage.setType(MessageType.STATUS);
         createMessage.setStatus(status);
         createMessage.setPicture(picture);
-        oos.writeObject(createMessage);
-        oos.flush();
+        objectOS.writeObject(createMessage);
+        objectOS.flush();
     }
 
     /* This method is used to send a connecting message */
@@ -154,7 +166,7 @@ public class Listener implements Runnable {
         createMessage.setType(CONNECTED);
         createMessage.setMsg(HASCONNECTED);
         createMessage.setPicture(picture);
-        oos.writeObject(createMessage);
+        objectOS.writeObject(createMessage);
     }
 
 }
