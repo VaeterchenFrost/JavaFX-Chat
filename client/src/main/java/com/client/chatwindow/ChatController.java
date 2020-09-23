@@ -215,13 +215,19 @@ public class ChatController implements Initializable {
         Platform.runLater(() -> {
             Image profileImg = new Image(getClass().getClassLoader()
                     .getResource("images/" + msg.getPicture().toLowerCase() + ".png").toString(), 50, 50, false, false);
-            TrayNotification tray = new TrayNotification();
-            tray.setTitle(A_NEW_USER_HAS_JOINED);
-            tray.setMessage(msg.getName() + HAS_JOINED_THE_JAVA_FX_CHATROOM);
-            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-            tray.setAnimationType(AnimationType.POPUP);
-            tray.setImage(profileImg);
-            tray.showAndDismiss(Duration.seconds(5));
+
+            try {
+                TrayNotification tray = new TrayNotification();
+                tray.setTitle(A_NEW_USER_HAS_JOINED);
+                tray.setMessage(msg.getName() + HAS_JOINED_THE_JAVA_FX_CHATROOM);
+                tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+                tray.setAnimationType(AnimationType.POPUP);
+                tray.setImage(profileImg);
+                tray.showAndDismiss(Duration.seconds(5));
+            } catch (IOException e1) {
+                logger.error("Could not create a tray notification", e1);
+            }
+
             try {
                 Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(hit);
