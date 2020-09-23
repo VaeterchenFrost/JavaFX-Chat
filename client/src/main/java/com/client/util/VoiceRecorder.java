@@ -26,6 +26,7 @@ public class VoiceRecorder extends VoiceUtil {
                 byte buffer[] = new byte[bufferSize];
 
                 public void run() {
+                    // deepcode ignore Missing~toString~java.io.ByteArrayOutputStream: Handling Audio/not String
                     out = new ByteArrayOutputStream();
                     isRecording = true;
                     try {
