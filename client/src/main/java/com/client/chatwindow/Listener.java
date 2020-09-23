@@ -38,8 +38,8 @@ public class Listener implements Runnable {
 
     public void run() {
         try (Socket resSocket = new Socket(hostname, port);
-                ObjectOutputStream resOOS = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream rIS = new ObjectInputStream(socket.getInputStream())) {
+                ObjectOutputStream resOOS = new ObjectOutputStream(resSocket.getOutputStream());
+                ObjectInputStream rIS = new ObjectInputStream(resSocket.getInputStream())) {
             socket = resSocket;
             input = rIS;
             oos = resOOS;
