@@ -1,6 +1,7 @@
 package com.client.chatwindow;
 
 import com.messages.User;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -17,7 +18,7 @@ class CellRenderer implements Callback<ListView<User>, ListCell<User>> {
     @Override
     public ListCell<User> call(ListView<User> p) {
 
-        return new ListCell<User>(){ 
+        return new ListCell<User>() {
 
             @Override
             protected void updateItem(User user, boolean bln) {

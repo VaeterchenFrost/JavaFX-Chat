@@ -1,11 +1,12 @@
 package com.traynotifications.animations;
 
+import com.traynotifications.models.CustomStage;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import com.traynotifications.models.CustomStage;
 
 public class FadeAnimation implements TrayAnimation {
 

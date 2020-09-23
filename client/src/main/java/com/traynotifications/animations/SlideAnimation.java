@@ -1,8 +1,13 @@
 package com.traynotifications.animations;
 
-import javafx.animation.*;
-import javafx.util.Duration;
 import com.traynotifications.models.CustomStage;
+
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class SlideAnimation implements TrayAnimation {
 

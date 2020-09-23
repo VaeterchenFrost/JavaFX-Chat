@@ -1,16 +1,19 @@
 package com.client.chatwindow;
 
+import static com.messages.MessageType.CONNECTED;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 import com.client.login.LoginController;
 import com.messages.Message;
 import com.messages.MessageType;
 import com.messages.Status;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.*;
-import java.net.Socket;
-
-import static com.messages.MessageType.CONNECTED;
 
 public class Listener implements Runnable {
 

@@ -1,5 +1,16 @@
 package com.traynotifications.notification;
 
+import java.io.IOException;
+import java.net.URL;
+
+import com.traynotifications.animations.AnimationProvider;
+import com.traynotifications.animations.AnimationType;
+import com.traynotifications.animations.FadeAnimation;
+import com.traynotifications.animations.PopupAnimation;
+import com.traynotifications.animations.SlideAnimation;
+import com.traynotifications.animations.TrayAnimation;
+import com.traynotifications.models.CustomStage;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,11 +24,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import com.traynotifications.animations.*;
-import com.traynotifications.models.CustomStage;
-
-import java.io.IOException;
-import java.net.URL;
 
 public final class TrayNotification {
 

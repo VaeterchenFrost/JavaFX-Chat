@@ -1,7 +1,11 @@
 package com.traynotifications.animations;
 
-import javafx.animation.*;
 import com.traynotifications.models.CustomStage;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 public class PopupAnimation implements TrayAnimation {
