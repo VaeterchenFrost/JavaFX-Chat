@@ -19,7 +19,6 @@ public class VoiceUtil {
     }
 
     protected static boolean isRecording = false;
-    static ByteArrayOutputStream out;
     /**
      * Defines an audio format
      */
