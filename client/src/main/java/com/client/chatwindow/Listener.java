@@ -40,17 +40,15 @@ public class Listener implements Runnable {
     }
 
     public void run() {
-        try (Socket resSocket = new Socket(hostname, port);
-                ObjectOutputStream resOOS = new ObjectOutputStream(resSocket.getOutputStream());
-                ObjectInputStream rIS = new ObjectInputStream(resSocket.getInputStream())) {
-            socket = resSocket;
-            input = rIS;
-            oos = resOOS;
+        try {
+            socket = new Socket(hostname, port);
+            input = new ObjectInputStream(socket.getInputStream());
+            oos = new ObjectOutputStream(socket.getOutputStream());
             LoginController.getInstance().showScene();
         } catch (IOException e) {
             LoginController.getInstance().showErrorDialog(COULD_NOT_CONNECT_TO_SERVER);
             logger.error("Could not Connect");
-        }
+        } 
         logger.info("Connection accepted {}:{}", socket.getInetAddress(), socket.getPort());
 
         try {
