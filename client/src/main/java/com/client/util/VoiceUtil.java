@@ -1,16 +1,17 @@
 package com.client.util;
 
 import javax.sound.sampled.AudioFormat;
-import java.io.ByteArrayOutputStream;
 
 /**
  * @author Dominic
+ *         <p>
+ *         Website: www.dominicheal.com
+ *         <p>
+ *         Github: www.github.com/DomHeal
  * @since 16-Oct-16
- * Website: www.dominicheal.com
- * Github: www.github.com/DomHeal
  */
 public class VoiceUtil {
-    public static void setRecording(boolean flag){
+    public static void setRecording(boolean flag) {
         isRecording = flag;
     }
 
@@ -19,6 +20,7 @@ public class VoiceUtil {
     }
 
     protected static boolean isRecording = false;
+
     /**
      * Defines an audio format
      */
@@ -28,8 +30,7 @@ public class VoiceUtil {
         int channels = 2;
         boolean signed = true;
         boolean bigEndian = true;
-        AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits,
-                channels, signed, bigEndian);
+        AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
         return format;
     }
 }
